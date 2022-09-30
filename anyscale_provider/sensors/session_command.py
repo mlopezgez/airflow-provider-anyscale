@@ -1,4 +1,3 @@
-import json
 from typing import Sequence
 
 from airflow.utils.context import Context
@@ -17,12 +16,10 @@ class AnyscaleSessionCommandSensor(AnyscaleBaseSensor):
     def __init__(
         self,
         session_command_id: str,
-        auth_token: str,
         **kwargs,
     ):
         super().__init__(**kwargs)
 
-        self.auth_token = auth_token
         self.session_command_id = session_command_id
 
     def poke(self, context: Context) -> bool:

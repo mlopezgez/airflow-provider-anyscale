@@ -125,22 +125,21 @@ class AnyscaleCreateClusterOperator(AnyscaleBaseOperator):
 
 class AnyscaleStartClusterOperator(AnyscaleBaseOperator):
     template_fields: Sequence[str] = [
-        "cluster_id",
         "auth_token",
+        "cluster_id",
         "start_cluster_options"
     ]
 
     def __init__(
         self,
+        *,
         cluster_id: str,
-        auth_token: str,
         start_cluster_options: Optional[dict] = None,
         wait_for_completion: Optional[bool] = False,
         **kwargs,
     ):
         super().__init__(**kwargs)
         self.cluster_id = cluster_id
-        self.auth_token = auth_token
 
         self.start_cluster_options = start_cluster_options
 
@@ -181,15 +180,14 @@ class AnyscaleTerminateClusterOperator(AnyscaleBaseOperator):
 
     def __init__(
         self,
+        *,
         cluster_id: str,
-        auth_token: str,
         terminate_cluster_options: Optional[dict] = None,
         wait_for_completion: Optional[bool] = False,
         **kwargs,
     ):
         super().__init__(**kwargs)
         self.cluster_id = cluster_id
-        self.auth_token = auth_token
 
         self.terminate_cluster_options = terminate_cluster_options
 

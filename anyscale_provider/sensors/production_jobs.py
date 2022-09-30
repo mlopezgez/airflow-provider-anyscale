@@ -1,33 +1,12 @@
 from typing import Sequence
-from anyscale import AnyscaleSDK
 
 from airflow.utils.context import Context
-from airflow.compat.functools import cached_property
+from anyscale_provider.sensors.base import AnyscaleBaseSensor
 
 from airflow.exceptions import AirflowException
-from airflow.sensors.base import BaseSensorOperator
 
 
-class AnyscaleBaseClusterSensor(BaseSensorOperator):
-    def __init__(
-        self,
-        *,
-        auth_token: str,
-        **kwargs
-    ):
-
-        self.auth_token = auth_token
-        super.__init__(**kwargs)
-
-    @cached_property
-    def sdk(self) -> AnyscaleSDK:
-        return AnyscaleSDK(auth_token=self.auth_token)
-
-    def poke(self, context: Context) -> bool:
-        raise NotImplementedError("Please implement poke() in subclass")
-
-
-class AnyscaleProductionJobSensor(BaseSensorOperator):
+class AnyscaleProductionJobSensor(AnyscaleBaseSensor):
 
     template_fields: Sequence[str] = [
         "production_job_id",

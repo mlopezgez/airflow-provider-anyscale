@@ -35,7 +35,6 @@ class AnyscaleCreateProductionJobOperator(AnyscaleBaseOperator):
     def __init__(
         self,
         name: str,
-        auth_token: str,
         project_id: str,
         entrypoint: str,
         cluster_environment_build_id: str = None,
@@ -54,7 +53,6 @@ class AnyscaleCreateProductionJobOperator(AnyscaleBaseOperator):
         self.name = name
         self.docker = docker
         self.entrypoint = entrypoint
-        self.auth_token = auth_token
         self.project_id = project_id
         self.description = description
         self.max_retries = max_retries

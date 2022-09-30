@@ -33,7 +33,6 @@ class AnyscaleApplyServiceOperator(AnyscaleBaseOperator):
     def __init__(
         self,
         name: str,
-        auth_token: str,
         project_id: str,
         entrypoint: str,
         healthcheck_url: str,
@@ -56,7 +55,6 @@ class AnyscaleApplyServiceOperator(AnyscaleBaseOperator):
         self.docker = docker
         self.access = access
         self.entrypoint = entrypoint
-        self.auth_token = auth_token
         self.project_id = project_id
         self.description = description
         self.max_retries = max_retries

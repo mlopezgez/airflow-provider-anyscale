@@ -1,16 +1,11 @@
 from typing import Sequence
 
 from airflow.utils.context import Context
-from plugins.utils import push_to_xcom
-
-from plugins.providers.anyscale.hooks.anyscale_hook import AnyscaleHook
-
 from airflow.exceptions import AirflowException
+from anyscale_provider.sensors.base import AnyscaleBaseSensor
 
-from airflow.sensors.base_sensor_operator import BaseSensorOperator
 
-
-class AnyscaleServiceSensor(BaseSensorOperator):
+class AnyscaleServiceSensor(AnyscaleBaseSensor):
 
     template_fields: Sequence[str] = [
         "service_id",
@@ -20,23 +15,18 @@ class AnyscaleServiceSensor(BaseSensorOperator):
     def __init__(
         self,
         service_id: str,
-        auth_token: str,
         goal_state: str = "RUNNING",
         **kwargs,
     ):
         super().__init__(**kwargs)
 
         self.service_id = service_id
-        self.auth_token = auth_token
         self.goal_state = goal_state
         self._ignore_keys = []
 
     def poke(self, context: Context) -> bool:
 
-        hook = AnyscaleHook(auth_token=self.auth_token)
-        sdk = hook.get_sdk()
-
-        response = sdk.get_service(
+        response = self.sdk.get_service(
             service_id=self.service_id)
 
         state = response.result.state

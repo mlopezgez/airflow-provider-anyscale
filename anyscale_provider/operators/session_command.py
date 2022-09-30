@@ -3,9 +3,9 @@ from typing import Optional, Sequence
 
 from anyscale import AnyscaleSDK
 
-from anyscale_provider.utils import push_to_xcom
 from airflow.utils.context import Context
-from airflow.models.baseoperator import BaseOperator
+from anyscale_provider.utils import push_to_xcom
+from anyscale_provider.operators.base import AnyscaleBaseOperator
 
 from anyscale_provider.sensors.session_command import AnyscaleSessionCommandSensor
 
@@ -13,7 +13,7 @@ from anyscale_provider.sensors.session_command import AnyscaleSessionCommandSens
 _POKE_INTERVAL = 60
 
 
-class AnyscaleCreateSessionCommandOperator(BaseOperator):
+class AnyscaleCreateSessionCommandOperator(AnyscaleBaseOperator):
     template_fields: Sequence[str] = [
         "session_id",
         "auth_token",
@@ -24,7 +24,6 @@ class AnyscaleCreateSessionCommandOperator(BaseOperator):
         self,
         *,
         session_id: str,
-        auth_token: str,
         shell_command: str,
         wait_for_completion: Optional[bool] = False,
         **kwargs,
@@ -33,7 +32,6 @@ class AnyscaleCreateSessionCommandOperator(BaseOperator):
 
         self.session_id = session_id
         self.shell_command = shell_command
-        self.auth_token = auth_token
         self.wait_for_completion = wait_for_completion
         self._ignore_keys = []
 
