@@ -1,33 +1,33 @@
-"""Setup.py for the Astronomer sample Airflow provider package. Built from datadog provider package for now."""
-
-from setuptools import find_packages, setup
+import os
+from setuptools import setup
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-"""Perform the package airflow-provider-sample setup."""
+VERSION = os.environ.get("ANYSCALE_PROVIDER_VERSION", "0.0.1")
+
 setup(
-    name='airflow-provider-sample',
-    version="0.0.1",
-    description='A sample provider package built by Astronomer.',
-    long_description=long_description,
-    long_description_content_type='text/markdown',
+    name="airflow-provider-anyscale",
+    description="An Apache Airflow provider for Anyscale",
     entry_points={
         "apache_airflow_provider": [
             "provider_info=sample_provider.__init__:get_provider_info"
         ]
     },
-    license='Apache License 2.0',
-    packages=['sample_provider', 'sample_provider.hooks',
-              'sample_provider.sensors', 'sample_provider.operators'],
-    install_requires=['apache-airflow>=2.0'],
-    setup_requires=['setuptools', 'wheel'],
-    author='Pete DeJoy',
-    author_email='pete@astronomer.io',
-    url='http://astronomer.io/',
-    classifiers=[
-        "Framework :: Apache Airflow",
-        "Framework :: Apache Airflow :: Provider",
-    ],
-    python_requires='~=3.7',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    license="Apache License 2.0",
+    version=VERSION,
+    packages=["anyscale_provider",
+              "anyscale_provider.sensors", "anyscale_provider.operators"],
+    install_requires=["apache-airflow>=2.0", "anyscale==0.5.50"],
+    setup_requires=["setuptools", "wheel"],
+    extras_require={},
+    author="Matias Lopez",
+    author_email="matias.lopez@anastasia.ai",
+    maintainer="Matías López",
+    maintainer_email="matias.lopez@anastasia.ai",
+    keywords=["anyscale", "ray", "distributed", "compute", "airflow"],
+    python_requires="~=3.7",
+    include_package_data=True,
 )
