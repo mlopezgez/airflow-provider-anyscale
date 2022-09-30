@@ -11,7 +11,7 @@ setup(
     description="An Apache Airflow provider for Anyscale",
     entry_points={
         "apache_airflow_provider": [
-            "provider_info=sample_provider.__init__:get_provider_info"
+            "provider_info=anyscale_provider.__init__:get_provider_info"
         ]
     },
     long_description=long_description,
