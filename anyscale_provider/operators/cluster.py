@@ -12,7 +12,6 @@ from airflow.exceptions import AirflowException
 from anyscale.shared_anyscale_utils.utils.byod import BYODInfo
 from anyscale.sdk.anyscale_client.models.cluster import Cluster
 
-
 _POKE_INTERVAL = 60
 
 

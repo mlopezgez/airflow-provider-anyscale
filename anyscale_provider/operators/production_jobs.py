@@ -12,7 +12,6 @@ from anyscale.shared_anyscale_utils.utils.byod import BYODInfo
 from anyscale.sdk.anyscale_client.models.production_job import ProductionJob
 from anyscale.sdk.anyscale_client.models.create_production_job import CreateProductionJob
 
-
 _POKE_INTERVAL = 60
 
 

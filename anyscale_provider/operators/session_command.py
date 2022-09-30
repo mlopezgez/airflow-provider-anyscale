@@ -9,7 +9,6 @@ from anyscale_provider.operators.base import AnyscaleBaseOperator
 
 from anyscale_provider.sensors.session_command import AnyscaleSessionCommandSensor
 
-
 _POKE_INTERVAL = 60
 
 
@@ -59,4 +58,5 @@ class AnyscaleCreateSessionCommandOperator(AnyscaleBaseOperator):
 
                 time.sleep(_POKE_INTERVAL)
 
-        push_to_xcom(session_command_response.to_dict(), context, self._ignore_keys)
+        push_to_xcom(session_command_response.to_dict(),
+                     context, self._ignore_keys)

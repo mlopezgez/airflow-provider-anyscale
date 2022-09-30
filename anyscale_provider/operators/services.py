@@ -12,6 +12,8 @@ from anyscale_provider.sensors.services import AnyscaleServiceSensor
 from anyscale.shared_anyscale_utils.utils.byod import BYODInfo
 from anyscale.sdk.anyscale_client.models.create_production_service import CreateProductionService
 
+_POKE_INTERVAL = 60
+
 
 class AnyscaleApplyServiceOperator(AnyscaleBaseOperator):
 
@@ -46,7 +48,6 @@ class AnyscaleApplyServiceOperator(AnyscaleBaseOperator):
         ray_version: Optional[str] = None,
         python_version: Optional[str] = None,
         wait_for_completion: Optional[bool] = False,
-        poke_interval: Optional[int] = 60,
         **kwargs,
     ):
         super().__init__(**kwargs)
@@ -66,7 +67,6 @@ class AnyscaleApplyServiceOperator(AnyscaleBaseOperator):
         self.cluster_environment_build_id = cluster_environment_build_id
 
         self.wait_for_completion = wait_for_completion
-        self.poke_interval = poke_interval
         self._ignore_keys = []
 
     def _get_cluster_environment_build_id(self) -> str:
@@ -125,7 +125,7 @@ class AnyscaleApplyServiceOperator(AnyscaleBaseOperator):
                 auth_token=self.auth_token,
             ).poke(context):
 
-                time.sleep(self.poke_interval)
+                time.sleep(_POKE_INTERVAL)
 
             self.log.info("service available at %s", production_service.url)
 
