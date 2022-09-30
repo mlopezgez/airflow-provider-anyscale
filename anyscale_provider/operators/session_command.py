@@ -1,8 +1,6 @@
 import time
 from typing import Optional, Sequence
 
-from anyscale import AnyscaleSDK
-
 from airflow.utils.context import Context
 from anyscale_provider.utils import push_to_xcom
 from anyscale_provider.operators.base import AnyscaleBaseOperator
@@ -36,14 +34,12 @@ class AnyscaleCreateSessionCommandOperator(AnyscaleBaseOperator):
 
     def execute(self, context: Context):
 
-        sdk = AnyscaleSDK(auth_token=self.auth_token)
-
         create_session_command = {
             "session_id": self.session_id,
             "shell_command": self.shell_command,
         }
 
-        session_command_response = sdk.create_session_command(
+        session_command_response = self.sdk.create_session_command(
             create_session_command).result
 
         self.log.info("session command with id %s created",
