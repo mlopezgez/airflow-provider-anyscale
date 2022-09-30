@@ -29,6 +29,11 @@ setup(
     extras_require={},
     author="Matias Lopez",
     author_email="matias.lopez@anastasia.ai",
+    url="http://astronomer.io/",
+    classifiers=[
+        "Framework :: Apache Airflow",
+        "Framework :: Apache Airflow :: Provider",
+    ],
     maintainer="Matías López",
     maintainer_email="matias.lopez@anastasia.ai",
     keywords=["anyscale", "ray", "distributed", "compute", "airflow"],
