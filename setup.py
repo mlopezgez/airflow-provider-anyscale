@@ -19,7 +19,12 @@ setup(
     license="Apache License 2.0",
     version=VERSION,
     packages=find_packages(include=["*"]),
-    install_requires=["apache-airflow>=2.0", "anyscale==0.5.50"],
+    zip_safe=False,
+    install_requires=[
+        "apache-airflow-providers-http",
+        "apache-airflow>=2.0",
+        "anyscale"
+    ],
     setup_requires=["setuptools", "wheel"],
     extras_require={},
     author="Matias Lopez",
@@ -27,6 +32,6 @@ setup(
     maintainer="Matías López",
     maintainer_email="matias.lopez@anastasia.ai",
     keywords=["anyscale", "ray", "distributed", "compute", "airflow"],
-    python_requires="~=3.7",
+    python_requires="~=3.9",
     include_package_data=True,
 )
