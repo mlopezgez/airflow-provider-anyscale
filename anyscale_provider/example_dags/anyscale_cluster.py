@@ -64,4 +64,4 @@ def anyscale_cluster():
     cluster >> start >> job >> terminate
 
 
-dag = anyscale_core_ai()
+dag = anyscale_cluster()

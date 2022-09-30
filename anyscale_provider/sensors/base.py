@@ -14,7 +14,7 @@ class AnyscaleBaseSensor(BaseSensorOperator):
     ):
 
         self.auth_token = auth_token
-        super.__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @cached_property
     def sdk(self) -> AnyscaleSDK:
