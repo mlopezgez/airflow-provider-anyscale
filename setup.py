@@ -1,5 +1,5 @@
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -18,8 +18,7 @@ setup(
     long_description_content_type="text/markdown",
     license="Apache License 2.0",
     version=VERSION,
-    packages=["anyscale_provider",
-              "anyscale_provider.sensors", "anyscale_provider.operators"],
+    packages=find_packages(include=["*"]),
     install_requires=["apache-airflow>=2.0", "anyscale==0.5.50"],
     setup_requires=["setuptools", "wheel"],
     extras_require={},
