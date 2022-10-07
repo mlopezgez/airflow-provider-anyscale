@@ -113,7 +113,7 @@ class AnyscaleCreateProductionJobOperator(AnyscaleBaseOperator):
         if self.wait_for_completion:
             while not AnyscaleProductionJobSensor(
                 task_id="wait_job",
-                job_id=production_job.id,
+                production_job_id=production_job.id,
                 auth_token=self.auth_token,
             ).poke(context):
 

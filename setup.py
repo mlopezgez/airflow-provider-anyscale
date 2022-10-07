@@ -37,6 +37,6 @@ setup(
     maintainer="Matías López",
     maintainer_email="matias.lopez@anastasia.ai",
     keywords=["anyscale", "ray", "distributed", "compute", "airflow"],
-    python_requires="~=3.9",
+    python_requires=">=3.8, <3.10",
     include_package_data=True,
 )

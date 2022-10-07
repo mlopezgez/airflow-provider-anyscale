@@ -23,17 +23,20 @@ class AnyscaleProductionJobSensor(AnyscaleBaseSensor):
         self.production_job_id = production_job_id
 
     def _fetch_logs(self):
-        response = self.sdk.get_production_job_logs(self.production_job_id)
-        return response.result.logs
+        result = self.sdk.get_production_job_logs(
+            self.production_job_id).result
+
+        return result.logs
 
     def poke(self, context: Context) -> bool:
 
-        response = self.sdk.get_production_job(
-            production_job_id=self.production_job_id)
+        production_job = self.sdk.get_production_job(
+            production_job_id=self.production_job_id).result
 
-        state = response.result.state
+        state = production_job.state
 
-        self.log.info("current state: %s, goal state %s", state.current_state, state.goal_state)
+        self.log.info("current state: %s, goal state %s",
+                      state.current_state, state.goal_state)
 
         operation_message = state.operation_message
         if operation_message:
@@ -53,7 +56,7 @@ class AnyscaleProductionJobSensor(AnyscaleBaseSensor):
         self.log.info(
             "job %s reached goal state %s", state.production_job_id, state.goal_state)
 
-        took = response.result.state.state_transitioned_at - response.result.created_at
+        took = state.state_transitioned_at - production_job.created_at
 
         self.log.info("duration: %s", took.total_seconds())
 
@@ -63,5 +66,5 @@ class AnyscaleProductionJobSensor(AnyscaleBaseSensor):
 
         except Exception:
             self.log.warning("logs not found for %s", self.production_job_id)
-        
+
         return True
